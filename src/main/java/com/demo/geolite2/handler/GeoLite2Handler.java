@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.InetAddress;
 
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.demo.geolite2.model.GeoLite2Dto;
@@ -25,8 +24,23 @@ public class GeoLite2Handler {
 	@PostConstruct
 	private void initObject() throws IOException {
 		
-		ClassPathResource resource = new ClassPathResource("data/GeoLite2-City.mmdb");
-		databaseReader = new DatabaseReader.Builder(resource.getFile()).build();
+		try 
+		{
+			ClassPathResource resource = new ClassPathResource("data/GeoLite2-City.mmdb");
+			databaseReader = new DatabaseReader.Builder(resource.getFile()).build();
+			
+			log.info("                                 ");
+			log.info("#################################");
+			log.info("GeoLite2 Database  load complete!");
+			log.info("#################################");
+			log.info("                                 ");
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 	
